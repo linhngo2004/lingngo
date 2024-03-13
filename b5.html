@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input onclick="baitoanttbfs()" type="submit" value="baitoanttbfs">
+    <script>
+        function baitoanttbfs(){ 
+            class Queue {
+    constructor() {
+        this.items = [];
+    }
+
+    enqueue(item) {
+        this.items.push(item);
+    }
+
+    dequeue() {
+        if (this.isEmpty()) {
+            return "Queue is empty";
+        }
+        return this.items.shift();
+    }
+
+    isEmpty() {
+        return this.items.length === 0;
+    }
+}
+
+function isValidMove(x, y) {
+    return x >= 0 && x < 8 && y >= 0 && y < 8;
+}
+
+function getRookMoves(x, y) {
+    let moves = [];
+    let directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]; // 4 hướng di chuyển của con xe
+
+    for (let dir of directions) {
+        let dx = dir[0];
+        let dy = dir[1];
+        let newX = x + dx;
+        let newY = y + dy;
+
+        while (isValidMove(newX, newY)) {
+            moves.push([newX, newY]);
+            newX += dx;
+            newY += dy;
+        }
+    }
+
+    return moves;
+}
+
+function findRookMoves(startX, startY) {
+    let visited = Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false));
+    let queue = new Queue();
+    queue.enqueue([startX, startY]);
+    visited[startX][startY] = true;
+    let rookMoves = [];
+
+    while (!queue.isEmpty()) {
+        let [x, y] = queue.dequeue();
+        rookMoves.push([x, y]);
+
+        let moves = getRookMoves(x, y);
+        for (let [newX, newY] of moves) {
+            if (!visited[newX][newY]) {
+                queue.enqueue([newX, newY]);
+                visited[newX][newY] = true;
+            }
+        }
+    }
+
+    return rookMoves;
+}
+
+// Vị trí ban đầu của con xe
+let startX = 0;
+let startY = 0;
+
+// Tìm các ô mà con xe có thể di chuyển đến từ vị trí ban đầu
+let rookMoves = findRookMoves(startX, startY);
+console.log("Các ô mà con xe có thể di chuyển đến:");
+console.log(rookMoves);
+
+
+    }
+</script>
+</body>
+</html>

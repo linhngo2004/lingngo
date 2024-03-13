@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input onclick="baitoanttfloyd()" type="submit" value="baitoanttfloyd">
+    <script>
+        function baitoanttfloyd(){ 
+           
+
+            const INF = Number.MAX_SAFE_INTEGER;
+
+function floydWarshall(graph) {
+    const dist = [];
+    const V = graph.length;
+
+    // Khởi tạo ma trận khoảng cách ban đầu
+    for (let i = 0; i < V; i++) {
+        dist[i] = [];
+        for (let j = 0; j < V; j++) {
+            if (i === j) {
+                dist[i][j] = 0; // Khoảng cách từ một nút đến chính nó là 0
+            } else if (graph[i][j] === 0) {
+                dist[i][j] = INF; // Nếu không có kết nối trực tiếp, gán giá trị vô cùng
+            } else {
+                dist[i][j] = graph[i][j]; // Gán khoảng cách từ cạnh
+            }
+        }
+    }
+
+    // Tìm đường đi ngắn nhất giữa tất cả các cặp nút
+    for (let k = 0; k < V; k++) {
+        for (let i = 0; i < V; i++) {
+            for (let j = 0; j < V; j++) {
+                if (dist[i][k] !== INF && dist[k][j] !== INF && dist[i][k] + dist[k][j] < dist[i][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+    }
+
+    return dist;
+}
+
+// Ví dụ về việc sử dụng thuật toán Floyd
+const graph = [
+    [0, 5, INF, 10],
+    [INF, 0, 3, INF],
+    [INF, INF, 0, 1],
+    [INF, INF, INF, 0]
+];
+
+console.log("Ma trận khoảng cách:");
+console.log(floydWarshall(graph));
+
+
+    }
+</script>
+</body>
+</html>

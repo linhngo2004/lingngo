@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input onclick="baitoantontai()" type="submit" value="baitoantontai">
+    <script>
+        function baitoantontai(){ 
+            function isSafe(board, row, col, N) {
+    // Kiểm tra hàng và cột
+    for (let i = 0; i < N; i++) {
+        if (board[row][i] === 1 || board[i][col] === 1) {
+            return false;
+        }
+    }
+
+    // Kiểm tra đường chéo chính (trên bên trái)
+    for (let i = row, j = col; i >= 0 && j >= 0; i--, j--) {
+        if (board[i][j] === 1) {
+            return false;
+        }
+    }
+
+    // Kiểm tra đường chéo chính (dưới bên phải)
+    for (let i = row, j = col; i < N && j < N; i++, j++) {
+        if (board[i][j] === 1) {
+            return false;
+        }
+    }
+
+    // Kiểm tra đường chéo phụ (trên bên phải)
+    for (let i = row, j = col; i >= 0 && j < N; i--, j++) {
+        if (board[i][j] === 1) {
+            return false;
+        }
+    }
+
+    // Kiểm tra đường chéo phụ (dưới bên trái)
+    for (let i = row, j = col; i < N && j >= 0; i++, j--) {
+        if (board[i][j] === 1) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function solveNQueens(N) {
+    // Khởi tạo bàn cờ
+    let board = Array.from({ length: N }, () => Array.from({ length: N }, () => 0));
+
+    // Hàm đệ quy để đặt các quân hậu
+    function placeQueens(row) {
+        if (row === N) {
+            return true; // Đã đặt tất cả các quân hậu thành công
+        }
+
+        for (let col = 0; col < N; col++) {
+            if (isSafe(board, row, col, N)) {
+                board[row][col] = 1; // Đặt quân hậu tại vị trí này
+
+                // Đệ quy để đặt quân hậu tiếp theo
+                if (placeQueens(row + 1)) {
+                    return true;
+                }
+
+                // Nếu không thể đặt quân hậu tại vị trí này, thì trả lại trạng thái ban đầu
+                board[row][col] = 0;
+            }
+        }
+
+        // Nếu không có vị trí nào phù hợp cho quân hậu ở hàng này
+        return false;
+    }
+
+    // Bắt đầu từ hàng đầu tiên
+    if (placeQueens(0)) {
+        // In ra bàn cờ nếu có cách đặt quân hậu thành công
+        console.log("Cách đặt quân hậu:");
+        for (let i = 0; i < N; i++) {
+            console.log(board[i].join(" "));
+        }
+    } else {
+        console.log("Không có cách đặt quân hậu thành công!");
+    }
+}
+
+// Gọi hàm để giải quyết bài toán với bàn cờ có kích thước là 10x10
+solveNQueens(10);
+
+    }
+</script>
+</body>
+</html>

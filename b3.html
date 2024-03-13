@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input onclick="baitoanlietke()" type="submit" value="baitoanlietke">
+    <script>
+        function baitoanlietke(){ 
+            function listNumbersWithout5() {
+    let numbers = [];
+
+    // Duyệt qua tất cả các số có 3 chữ số từ 100 đến 999
+    for (let i = 100; i < 1000; i++) {
+        // Chuyển số thành chuỗi để dễ dàng kiểm tra từng chữ số
+        let numStr = i.toString();
+
+        // Kiểm tra xem số có chứa chữ số 5 hay không
+        if (numStr.indexOf('5') === -1) {
+            numbers.push(i); // Nếu không chứa chữ số 5, thêm số vào mảng
+        }
+    }
+
+    return numbers;
+}
+
+// Gọi hàm để liệt kê các số tự nhiên có 3 chữ số và không chứa chữ số 5
+console.log("Các số tự nhiên có 3 chữ số và không chứa chữ số 5:");
+console.log(listNumbersWithout5());
+
+
+    }
+</script>
+</body>
+</html>
